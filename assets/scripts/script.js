@@ -27,9 +27,12 @@ function generatePassword() {
     console.log(numbers);
 
     const specialChar = confirm("Do you want special characters in your password?");
-    console.log(specialChar);  
+    console.log(specialChar);
 
-    // define whie password conditions are true
+    // sets charType so that when going through loop we can notate if at least one type is selected
+    let charType = 0;
+
+    // define what password conditions are true and loop until desired password length
     for (let i = 0; i < charLength;) {
         console.log(i);
         console.log("This is charLength " + charLength);
@@ -39,6 +42,7 @@ function generatePassword() {
             password += randomLower;
             console.log(password);
             i++
+            charType++;
         }
     
         if (upperCase) {
@@ -46,6 +50,7 @@ function generatePassword() {
             password += randomUpper;
             console.log(password);
             i++
+            charType++;
         }
     
         if (numbers) {
@@ -53,6 +58,7 @@ function generatePassword() {
             password += randomNumber;
             console.log(password);
             i++
+            charType++;
         }
     
         if (specialChar) {
@@ -60,12 +66,20 @@ function generatePassword() {
             password += randomSpecChar;
             console.log(password);
             i++
+            charType++;
+        }
+
+        if (charType < 1) {
+            alert("Password length requirement not met, please try again")
+            return "";
+
         }
     }
-    
+
     return password;
 }
 
+// Write password to the #password input
 function writePassword() {
     let password = generatePassword();
     let passwordText = document.querySelector("#password");
@@ -73,4 +87,5 @@ function writePassword() {
     passwordText.value = password;
 }
 
+// Add event listener to generate button
 generateBtn.addEventListener("click", writePassword);
