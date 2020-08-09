@@ -3,32 +3,74 @@ let generateBtn = document.querySelector("#generate");
 
 // creating password
 function generatePassword() {
+    let password = "";
 
     // Ask user desired length of password between 8 & 128
-    charLimit = prompt("Enter desired password length. (Must be between 8 - 128 characters)");
-    console.log(charLimit);
+    charLength = prompt("Enter desired password length. (Must be between 8 - 128 characters)");
+    charLength = parseInt(charLength)
+    console.log(charLength);
 
     // Verify password length requirements are met
-    if (charLimit < 8 || charLimit > 128) {
+    if (charLength < 8 || charLength > 128) {
         alert("Password length requirement not met, please try again")
-        generatePassword();
+        return "";
     }
 
     // When requirements are met, ask for password conditions
-    let lowerCase = confirm("Do you want lowercase letters in your password?");
+    const lowerCase = confirm("Do you want lowercase letters in your password?");
     console.log(lowerCase);
 
-    let upperCase = confirm("Do you want upperCase letters in your password?");
+    const upperCase = confirm("Do you want upperCase letters in your password?");
     console.log(upperCase);
 
-    let numbers = confirm("Do you want numbers in your password?");
+    const numbers = confirm("Do you want numbers in your password?");
     console.log(numbers);
 
-    let specialChar = confirm("Do you want special characters in your password?");
+    const specialChar = confirm("Do you want special characters in your password?");
     console.log(specialChar);  
+
+    // define whie password conditions are true
+    for (let i = 0; i < charLength;) {
+        console.log(i);
+        console.log("This is charLength " + charLength);
+        console.log(typeof charLength);
+        if (lowerCase) {
+            let randomLower = String.fromCharCode(Math.floor(Math.random() * 26) + 97);
+            password += randomLower;
+            console.log(password);
+            i++
+        }
+    
+        if (upperCase) {
+            let randomUpper = String.fromCharCode(Math.floor(Math.random() * 26) + 65);
+            password += randomUpper;
+            console.log(password);
+            i++
+        }
+    
+        if (numbers) {
+            let randomNumber = String.fromCharCode(Math.floor(Math.random() * 10) + 48);
+            password += randomNumber;
+            console.log(password);
+            i++
+        }
+    
+        if (specialChar) {
+            let randomSpecChar = String.fromCharCode(Math.floor(Math.random() * 15) + 33);
+            password += randomSpecChar;
+            console.log(password);
+            i++
+        }
+    }
+    
+    return password;
 }
 
-generatePassword();
+function writePassword() {
+    let password = generatePassword();
+    let passwordText = document.querySelector("#password");
+  
+    passwordText.value = password;
+}
 
-
-
+generateBtn.addEventListener("click", writePassword);
